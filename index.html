@@ -1,137 +1,391 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xueqiang Xin's Personal Blog</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #555 3px solid;
-        }
-        header a {
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
-        header ul {
-            padding: 0;
-            list-style: none;
-        }
-        header li {
-            display: inline;
-            padding: 0 20px 0 20px;
-        }
-        header #branding {
-            float: left;
-        }
-        header #branding h1 {
-            margin: 0;
-        }
-        header nav {
-            float: right;
-            margin-top: 10px;
-        }
-        header .highlight, header .current a {
-            color: #e8491d;
-            font-weight: bold;
-        }
-        header a:hover {
-            color: #ffffff;
-            font-weight: bold;
-        }
-        .content {
-            padding: 20px;
-            background: #fff;
-            margin-top: 20px;
-        }
-        .profile {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .profile img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-        .profile h2 {
-            margin: 0;
-        }
-        .profile p {
-            margin: 10px 0;
-        }
-        .images {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .images img {
-            width: 48%;
-            height: auto;
-        }
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="title">姓名 | 生命科学研究主页</title>
+  <meta name="description" content="姓名，生命科学/生物医学研究者，研究方向：xxxx。" data-i18n="meta_desc">
+  <meta name="color-scheme" content="light dark">
+  <style>
+    :root {
+      --maxw: 900px;
+      --fg: #1a1a1a;
+      --muted: #666;
+      --bg: #ffffff;
+      --accent: #005bbb;
+      --card: #f7f7f8;
+      --border: #e6e6e6;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #e9e9ea;
+        --muted: #a8a8ad;
+        --bg: #0e0f10;
+        --accent: #6ea8fe;
+        --card: #16181a;
+        --border: #2a2d30;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 16px 20px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+    .avatar {
+      width: 100px; height: 100px; border-radius: 50%;
+      object-fit: cover; border: 1px solid var(--border);
+      background: var(--card);
+    }
+    nav { display: flex; gap: 14px; flex-wrap: wrap; font-size: 15px; }
+    nav a { padding: 8px 0; color: var(--muted); }
+    .lang-switch {
+      display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--card);
+    }
+    .lang-switch button {
+      appearance: none; border: 0; background: transparent; padding: 6px 10px; font-size: 13px; color: var(--muted); cursor: pointer;
+    }
+    .lang-switch button[aria-pressed="true"] {
+      background: var(--bg); color: var(--fg);
+    }
+    main .section {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { font-size: 26px; margin: 0 0 4px; }
+    h2 { font-size: 20px; margin: 0 0 12px; }
+    p { margin: 8px 0; }
+    .meta { color: var(--muted); font-size: 14px; }
+    .grid-2 { display: grid; gap: 16px; grid-template-columns: 1fr; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    ul { margin: 8px 0 0 18px; }
+    li + li { margin-top: 6px; }
+    .pub-item { margin: 10px 0; }
+    .tag {
+      display: inline-block; padding: 2px 8px; font-size: 12px;
+      border: 1px solid var(--border); border-radius: 999px; color: var(--muted); margin-right: 6px;
+    }
+    .footer { color: var(--muted); font-size: 13px; padding: 20px; text-align: center; }
+    @media (min-width: 800px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+  </style>
+  <link rel="icon" href="favicon.ico">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div id="branding">
-                <h1>Xueqiang Xin's Blog</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li class="current"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="content">
-            <div class="profile">
-                <img src="assets/img/about/profile1.png" alt="Profile Picture">
-                <div>
-                    <h2>Welcome to my personal blog.</h2>
-                    <p>My given name is Xueqiang Xin. You may also address me by my English name, Eirwyn Sheen. In this blog, you'll find my thoughts on scientific research.</p>
-                </div>
-            </div>
-            <div class="images">
-                <img src="assets/img/about/profile1.png" alt="Profile Picture">
-                <img src="assets/img/Fire_of_love.jpg" alt="Fire of Love">
-            </div>
-        </div>
+  <a href="#main" class="sr-only" data-i18n="skip">跳转到主要内容</a>
+  <header>
+    <div class="wrap hero">
+      <img src="avatar.jpg" alt="头像" class="avatar" id="avatarAlt">
+      <div>
+        <h1><span id="name">姓名</span></h1>
+        <p class="meta" id="metaLine">职称（如：副研究员） · 单位（如：某某大学生命科学学院） · 城市, 国家</p>
+        <nav aria-label="主导航" id="navLabel">
+          <a href="#about" data-i18n="nav_about">简介</a>
+          <a href="#research" data-i18n="nav_research">研究方向</a>
+          <a href="#publications" data-i18n="nav_publications">论文</a>
+          <a href="#grants" data-i18n="nav_grants">项目</a>
+          <a href="#teaching" data-i18n="nav_teaching">教学</a>
+          <a href="#contact" data-i18n="nav_contact">联系</a>
+          <a href="CV.pdf" data-i18n="nav_cv">CV</a>
+        </nav>
+      </div>
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button id="btn-zh" data-lang="zh" aria-pressed="true">中文</button>
+        <button id="btn-en" data-lang="en" aria-pressed="false">EN</button>
+      </div>
     </div>
+  </header>
 
-    <footer>
-        <p>&copy; 2025 Xueqiang Xin's Blog</p>
-    </footer>
+  <main id="main" class="wrap">
+    <section id="about" class="section">
+      <h2 data-i18n="h_about">简介</h2>
+      <div class="grid-2">
+        <div>
+          <p id="about_p1">我是一名生命科学领域的科研人员，主要从事<span class="tag">分子生物学</span><span class="tag">细胞信号转导</span><span class="tag">肿瘤生物学</span>等方向的研究。关注疾病发生机制与转化医学应用。</p>
+          <p id="about_p2">目前在 <strong>某某大学/研究所</strong> 任 <strong>职称</strong>，带领课题组围绕<strong>研究主题</strong>开展系统研究。</p>
+        </div>
+        <div class="card">
+          <p><strong data-i18n="about_sidebar_title">教育与经历（概览）</strong></p>
+          <ul>
+            <li id="edu_1">Ph.D., 学校 / 专业（年份）</li>
+            <li id="edu_2">Postdoc, 机构 / 导师（年份）</li>
+            <li id="edu_3">工作任职，单位（年份–至今）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="research" class="section">
+      <h2 data-i18n="h_research">研究方向</h2>
+      <ul>
+        <li id="r1"><strong>方向一：</strong>通过单细胞测序解析肿瘤微环境异质性。</li>
+        <li id="r2"><strong>方向二：</strong>开发蛋白降解小分子以调控异常通路。</li>
+        <li id="r3"><strong>方向三：</strong>构建疾病动物模型并进行功能验证。</li>
+      </ul>
+    </section>
+
+    <section id="publications" class="section">
+      <h2 data-i18n="h_publications">精选论文</h2>
+      <div class="pub-item" id="pub1">
+        <strong>First A</strong>, Second B, <strong>姓名</strong>. Title of the paper. <em>Journal</em>, Year.
+        <a href="#" data-i18n="label_link">链接</a> · <a href="#" data-i18n="label_doi">DOI</a> · <a href="paper1.pdf" data-i18n="label_pdf">PDF</a>
+      </div>
+      <div class="pub-item" id="pub2">
+        <strong>姓名</strong>, Coauthor C. Another title. <em>Journal</em>, Year.
+        <a href="#" data-i18n="label_link">链接</a> · <a href="#" data-i18n="label_doi">DOI</a> · <a href="paper2.pdf" data-i18n="label_pdf">PDF</a>
+      </div>
+      <details>
+        <summary data-i18n="more_pubs">展开更多论文</summary>
+        <div class="pub-item" id="pub3">
+          Author..., <strong>姓名</strong>. Title. <em>Journal</em>, Year. <a href="#" data-i18n="label_link">链接</a>
+        </div>
+        <div class="pub-item" id="pub4">
+          Author..., <strong>姓名</strong>. Title. <em>Journal</em>, Year. <a href="#" data-i18n="label_link">链接</a>
+        </div>
+      </details>
+    </section>
+
+    <section id="grants" class="section">
+      <h2 data-i18n="h_grants">项目与资助</h2>
+      <ul>
+        <li id="g1">主持：国家/省部级项目（编号，年份–年份），经费 ¥X 万，主题：xxxx</li>
+        <li id="g2">参与：重大专项子课题（编号，年份–年份），任务：xxxx</li>
+      </ul>
+    </section>
+
+    <section id="teaching" class="section">
+      <h2 data-i18n="h_teaching">教学与指导</h2>
+      <ul>
+        <li id="t1">课程名称（本科/研究生，年份–至今），简介（1 句）</li>
+        <li id="t2">指导学生：博士 n 名，硕士 n 名；毕业去向（可选）</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="section">
+      <h2 data-i18n="h_contact">联系</h2>
+      <div class="grid-2">
+        <div>
+          <p><span data-i18n="label_email">邮箱</span>：<a href="mailto:you@university.edu" id="email">you@university.edu</a></p>
+          <p><span data-i18n="label_address">地址</span>：单位 · 院系 · 办公室号，城市，邮编</p>
+          <p>ORCID：<a href="https://orcid.org/0000-0000-0000-0000" id="orcid">0000-0000-0000-0000</a> · Google Scholar：<a href="#" id="scholar">链接</a></p>
+        </div>
+        <div class="card">
+          <p><strong data-i18n="downloads">下载</strong></p>
+          <ul>
+            <li><a href="CV.pdf" data-i18n="cv_pdf">简历（PDF）</a></li>
+            <li><a href="bio.txt" data-i18n="short_bio">简短个人简介（TXT）</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      © <span id="year"></span> <span id="footer-name">姓名</span> · <span id="updatedLabel">本页最后更新</span>：<time id="updated"></time>
+    </div>
+  </footer>
+
+  <script>
+    // i18n dictionary
+    const I18N = {
+      zh: {
+        title: '姓名 | 生命科学研究主页',
+        meta_desc: '姓名，生命科学/生物医学研究者，研究方向：xxxx。',
+        skip: '跳转到主要内容',
+        nav_about: '简介',
+        nav_research: '研究方向',
+        nav_publications: '论文',
+        nav_grants: '项目',
+        nav_teaching: '教学',
+        nav_contact: '联系',
+        nav_cv: 'CV',
+        h_about: '简介',
+        h_research: '研究方向',
+        h_publications: '精选论文',
+        h_grants: '项目与资助',
+        h_teaching: '教学与指导',
+        h_contact: '联系',
+        about_sidebar_title: '教育与经历（概览）',
+        label_link: '链接',
+        label_doi: 'DOI',
+        label_pdf: 'PDF',
+        more_pubs: '展开更多论文',
+        downloads: '下载',
+        cv_pdf: '简历（PDF）',
+        short_bio: '简短个人简介（TXT）',
+        label_email: '邮箱',
+        label_address: '地址',
+        updated_label: '本页最后更新',
+      },
+      en: {
+        title: 'Name | Life Sciences Research',
+        meta_desc: 'Name, life sciences/biomedical researcher. Research interests: xxxx.',
+        skip: 'Skip to main content',
+        nav_about: 'About',
+        nav_research: 'Research',
+        nav_publications: 'Publications',
+        nav_grants: 'Grants',
+        nav_teaching: 'Teaching',
+        nav_contact: 'Contact',
+        nav_cv: 'CV',
+        h_about: 'About',
+        h_research: 'Research',
+        h_publications: 'Selected Publications',
+        h_grants: 'Grants & Funding',
+        h_teaching: 'Teaching & Mentoring',
+        h_contact: 'Contact',
+        about_sidebar_title: 'Education & Appointments (Brief)',
+        label_link: 'Link',
+        label_doi: 'DOI',
+        label_pdf: 'PDF',
+        more_pubs: 'More publications',
+        downloads: 'Downloads',
+        cv_pdf: 'CV (PDF)',
+        short_bio: 'Short bio (TXT)',
+        label_email: 'Email',
+        label_address: 'Address',
+        updated_label: 'Last updated',
+      }
+    };
+
+    // Content that differs beyond simple labels
+    const CONTENT = {
+      zh: {
+        avatarAlt: '头像',
+        navLabel: '主导航',
+        metaLine: '职称（如：副研究员） · 单位（如：某某大学生命科学学院） · 城市, 国家',
+        about_p1: '我是一名生命科学领域的科研人员，主要从事<span class="tag">分子生物学</span><span class="tag">细胞信号转导</span><span class="tag">肿瘤生物学</span>等方向的研究。关注疾病发生机制与转化医学应用。',
+        about_p2: '目前在 <strong>某某大学/研究所</strong> 任 <strong>职称</strong>，带领课题组围绕<strong>研究主题</strong>开展系统研究。',
+        edu_1: 'Ph.D., 学校 / 专业（年份）',
+        edu_2: 'Postdoc, 机构 / 导师（年份）',
+        edu_3: '工作任职，单位（年份–至今）',
+        r1: '<strong>方向一：</strong>通过单细胞测序解析肿瘤微环境异质性。',
+        r2: '<strong>方向二：</strong>开发蛋白降解小分子以调控异常通路。',
+        r3: '<strong>方向三：</strong>构建疾病动物模型并进行功能验证。',
+        g1: '主持：国家/省部级项目（编号，年份–年份），经费 ¥X 万，主题：xxxx',
+        g2: '参与：重大专项子课题（编号，年份–年份），任务：xxxx',
+        t1: '课程名称（本科/研究生，年份–至今），简介（1 句）',
+        t2: '指导学生：博士 n 名，硕士 n 名；毕业去向（可选）',
+      },
+      en: {
+        avatarAlt: 'Profile photo',
+        navLabel: 'Main navigation',
+        metaLine: 'Title (e.g., Associate Professor) · Affiliation (e.g., School of Life Sciences, XX University) · City, Country',
+        about_p1: 'I am a life sciences researcher focusing on <span class="tag">molecular biology</span><span class="tag">cell signaling</span><span class="tag">cancer biology</span>, aiming to bridge disease mechanisms and translational medicine.',
+        about_p2: 'I currently serve as <strong>Title</strong> at <strong>University/Institute</strong>, leading a group on <strong>research themes</strong>.',
+        edu_1: 'Ph.D., University / Program (Year)',
+        edu_2: 'Postdoc, Institute / Mentor (Year)',
+        edu_3: 'Faculty position, Organization (Year–present)',
+        r1: '<strong>Topic 1:</strong> Dissect tumor microenvironment heterogeneity via single-cell sequencing.',
+        r2: '<strong>Topic 2:</strong> Develop targeted protein degradation molecules to modulate dysregulated pathways.',
+        r3: '<strong>Topic 3:</strong> Build disease models for functional validation.',
+        g1: 'PI: National/Provincial grant (ID, Year–Year), Budget ¥X0k, Topic: xxxx',
+        g2: 'Co-I: Major project subtask (ID, Year–Year), Role: xxxx',
+        t1: 'Course title (UG/Grad, Year–present), one-line description.',
+        t2: 'Mentoring: PhD n, MSc n; placements (optional).',
+      }
+    };
+
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => [...document.querySelectorAll(sel)];
+
+    function applyI18n(lang) {
+      const dict = I18N[lang];
+      const content = CONTENT[lang];
+
+      // Update html lang
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+      // Title + meta
+      const titleEl = document.querySelector('title[data-i18n="title"]');
+      if (titleEl) titleEl.textContent = dict.title;
+      const metaDesc = document.querySelector('meta[name="description"][data-i18n="meta_desc"]');
+      if (metaDesc) metaDesc.setAttribute('content', dict.meta_desc);
+
+      // Simple label keys
+      $$('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[lang][key]) el.textContent = I18N[lang][key];
+      });
+
+      // ARIA/alt labels and richer HTML content
+      const avatar = $('#avatarAlt');
+      if (avatar) avatar.alt = content.avatarAlt;
+
+      const nav = $('#navLabel');
+      if (nav) nav.setAttribute('aria-label', lang === 'zh' ? '主导航' : 'Main navigation');
+
+      // Rich text fields
+      const richIds = ['metaLine','about_p1','about_p2','edu_1','edu_2','edu_3','r1','r2','r3','g1','g2','t1','t2'];
+      richIds.forEach(id => { const el = $('#'+id); if (el && content[id]) el.innerHTML = content[id]; });
+
+      // Footer label
+      const updLabel = $('#updatedLabel');
+      if (updLabel) updLabel.textContent = dict.updated_label;
+
+      // Update language switch button states
+      $('#btn-zh').setAttribute('aria-pressed', String(lang === 'zh'));
+      $('#btn-en').setAttribute('aria-pressed', String(lang === 'en'));
+    }
+
+    function detectInitialLang() {
+      const saved = localStorage.getItem('lang');
+      if (saved === 'zh' || saved === 'en') return saved;
+      const navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+      return navLang.startsWith('zh') ? 'zh' : 'en';
+    }
+
+    // Init
+    const year = new Date().getFullYear();
+    $('#year').textContent = year;
+    $('#updated').textContent = new Date().toISOString().slice(0, 10);
+
+    const initialLang = detectInitialLang();
+    applyI18n(initialLang);
+
+    // Bind events
+    $('#btn-zh').addEventListener('click', () => { localStorage.setItem('lang','zh'); applyI18n('zh'); });
+    $('#btn-en').addEventListener('click', () => { localStorage.setItem('lang','en'); applyI18n('en'); });
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "姓名",
+    "jobTitle": "职称",
+    "affiliation": { "@type": "Organization", "name": "单位" },
+    "email": "you@university.edu",
+    "url": "https://your-domain.example",
+    "sameAs": [
+      "https://orcid.org/0000-0000-0000-0000",
+      "https://scholar.google.com/citations?user=xxxx"
+    ]
+  }
+  </script>
 </body>
 </html>
